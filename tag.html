@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #content {
+            position: absolute;
+            top: 100px;
+            left: -150px;
+            width: 150px;
+            height: 400px;
+            background: cornflowerblue;
+        }
+
+        #title {
+            position: absolute;
+            top: 100px;
+            right: -30px;
+            width: 30px;
+            height: 120px;
+            background: lightblue;
+        }
+
+        #ul_content {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        #ul_content > li {
+            width: 150px;
+            height: 100px;
+            background: teal;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+        }
+
+        #ul_content > li:hover {
+            background: powderblue;
+        }
+
+    </style>
+</head>
+<body>
+<div id="content">
+    <div id="title">1111</div>
+    <ul id="ul_content">
+        <li>猫转身</li>
+        <li>猴子上树</li>
+        <li>乌鸦坐飞机</li>
+        <li>我成了瘸腿鹅</li>
+    </ul>
+
+</div>
+</body>
+<script>
+    function getObj(id) {
+        return document.getElementById(id);
+    }
+    //兼容
+    function getStyle(obj, attr) {
+        if (document.all) {
+            return parseInt(obj.currentStyle[attr]);
+        } else {
+            return parseInt(getComputedStyle(obj, false)[attr]);
+        }
+    }
+
+    var share = getObj("content");
+    share.addEventListener("mouseover", function () {
+        moving(this, 10, 0);
+    }, true);
+    share.addEventListener("mouseout", function () {
+        moving(this, -10, -150);
+    }, true);
+
+
+    function moving(obj, speed, terminal) {
+        clearInterval(share.timer);
+        obj.timer = null;
+        obj.timer = setInterval(function () {
+            var left_val = getStyle(share, "left");
+            if (left_val < terminal) {
+                if (left_val < terminal) {
+                    left_val += speed;
+                }
+            } else {
+                if (left_val > terminal) {
+                    left_val += speed;
+                }
+            }
+            share.style.left = left_val + "px";
+        }, 17)
+    }
+
+
+</script>
+
+
+</html>
